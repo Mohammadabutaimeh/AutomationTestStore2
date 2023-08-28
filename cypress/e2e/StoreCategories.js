@@ -76,25 +76,25 @@ describe('assignment', () => {
         cy.visit("https://www.automationteststore.com/");
 
 
-        const newPrices = [];
+        let newPrices = [];
         cy.get('#special > .container-fluid').find('.pricenew').each((item) => {
             cy.wrap(item).invoke('text').then((newPrice) => {
                 newPrices.push(parseFloat(newPrice.replace('$', '')));
             });
         }).then(() => {
 
-            const oldPrices = [];
+            let oldPrices = [];
             cy.get('#special > .container-fluid').find('.priceold').each((item) => {
                 cy.wrap(item).invoke('text').then((oldPrice) => {
                     oldPrices.push(parseFloat(oldPrice.replace('$', '')));
                 });
             }).then(() => {
               
-                const sumOldPrices = oldPrices.reduce((sum, price) => sum + price, 0);
-                const sumNewPrices = newPrices.reduce((sum, price) => sum + price, 0);
+                let sumOldPrices = oldPrices.reduce((sum, price) => sum + price, 0);
+                let sumNewPrices = newPrices.reduce((sum, price) => sum + price, 0);
 
                
-                const alertMessage = `Hey, the sum of the old prices is $${sumOldPrices.toFixed(2)}, and the sum of the new prices is $${sumNewPrices.toFixed(2)}.`;
+                let alertMessage = `Hey, the sum of the old prices is $${sumOldPrices.toFixed(2)}, and the sum of the new prices is $${sumNewPrices.toFixed(2)}.`;
                 cy.log(alertMessage); 
                 alert(alertMessage);
                 });
