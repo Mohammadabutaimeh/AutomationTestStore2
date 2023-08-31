@@ -71,36 +71,52 @@
 // });
 
 
-describe('assignment', () => {
-    it('calculates and displays sums of old and new prices', () => {
-        cy.visit("https://www.automationteststore.com/");
+// describe('assignment', () => {
+//     it('calculates and displays sums of old and new prices', () => {
+//         cy.visit("https://www.automationteststore.com/");
 
+//         let newPrices = [];
+//         cy.get('#special > .container-fluid').find('.pricenew').each((item) => {
+//             cy.wrap(item).invoke('text').then((newPrice) => {
+//                 newPrices.push(parseFloat(newPrice.replace('$', '')));
+//             });
+//         }).then(() => {
 
-        let newPrices = [];
-        cy.get('#special > .container-fluid').find('.pricenew').each((item) => {
-            cy.wrap(item).invoke('text').then((newPrice) => {
-                newPrices.push(parseFloat(newPrice.replace('$', '')));
-            });
-        }).then(() => {
-
-            let oldPrices = [];
-            cy.get('#special > .container-fluid').find('.priceold').each((item) => {
-                cy.wrap(item).invoke('text').then((oldPrice) => {
-                    oldPrices.push(parseFloat(oldPrice.replace('$', '')));
-                });
-            }).then(() => {
+//             let oldPrices = [];
+//             cy.get('#special > .container-fluid').find('.priceold').each((item) => {
+//                 cy.wrap(item).invoke('text').then((oldPrice) => {
+//                     oldPrices.push(parseFloat(oldPrice.replace('$', '')));
+//                 });
+//             }).then(() => {
               
-                let sumOldPrices = oldPrices.reduce((sum, price) => sum + price, 0);
-                let sumNewPrices = newPrices.reduce((sum, price) => sum + price, 0);
+//                 let sumOldPrices = oldPrices.reduce((sum, price) => sum + price);
+//                 let sumNewPrices = newPrices.reduce((sum, price) => sum + price);
 
                
-                let alertMessage = `Hey, the sum of the old prices is $${sumOldPrices.toFixed(2)}, and the sum of the new prices is $${sumNewPrices.toFixed(2)}.`;
-                cy.log(alertMessage); 
-                alert(alertMessage);
-                });
+//                 let alertMessage = `Hey, the sum of the old prices is $${sumOldPrices.toFixed(2)}, and the sum of the new prices is $${sumNewPrices.toFixed(2)}.`;
+//                 cy.log(alertMessage); 
+//                 alert(alertMessage);
+//                 });
 
               
-            });
-        });
-    });
+//             });
+//         });
+//     });
 
+describe('Add to cart and check the checkout process', () => {
+       it('check if the checkout is working well', () => {
+         cy.visit("https://www.automationteststore.com/");
+         cy.get('#customer_menu_top > li > a').click();
+         cy.get('#loginFrm_loginname').type('mohammad978');
+         cy.get('#loginFrm_password').type('123456@Qa{enter}');
+         cy.get(':nth-child(1) > .active').click();
+         cy.get('#block_frame_latest_1770 > .thumbnails > :nth-child(1) > .thumbnail > .pricetag > .productcart > .fa').click();
+         cy.get('#block_frame_latest_1770 > .thumbnails > :nth-child(2) > .thumbnail > .pricetag > .productcart > .fa').click();
+         cy.get('#block_frame_latest_1770 > .thumbnails > :nth-child(3) > .thumbnail > .pricetag > .productcart > .fa').click();
+         cy.get('.block_7 > .nav > .dropdown > .dropdown-toggle').click();
+         cy.get('#cart_checkout1').click();
+         cy.get('#checkout_btn').click();
+         cy.get('.maintext').should('contain', 'Your Order Has Been Processed!');
+         
+       })
+})
