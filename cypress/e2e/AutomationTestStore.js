@@ -116,7 +116,7 @@ describe('Add to cart and check the checkout process', () => {
          cy.get('.block_7 > .nav > .dropdown > .dropdown-toggle').click();
          cy.get('#cart_checkout1').click();
          cy.get('#checkout_btn').click();
-         cy.get('.maintext').should('contain', 'Your Order Has Been Processed!');
+         cy.get('.maintext').should('include.text', 'Your Order Has Been Processed!');
          
        })
 })
